@@ -1,0 +1,13 @@
+{
+  "name": "Bulk Tariff Management",
+  "id": "com.github.dtj2000.victoria3-bulk-tariff-mod",
+  "version": "1.0.0",
+  "gameRegistryId": "victoria3",
+  "shortDescription": "Apply a tariff/subvention policy to all goods at once via Journal decisions. Adds a button to every tariff bar.",
+  "tags": [
+    "Utilities",
+    "Economy"
+  ],
+  "relationships": [],
+  "rules": []
+}

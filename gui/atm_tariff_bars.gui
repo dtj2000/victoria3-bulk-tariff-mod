@@ -1,0 +1,343 @@
+# Bulk Tariff Management - GUI Overrides
+# Overrides set_level_bar_export_tariffs and set_level_bar_import_tariffs
+# to add a "≡ All" button at the end of each tariff bar row.
+# Clicking it opens the Journal where the Bulk Tariff decisions are listed.
+#
+# IMPORTANT: This is a full override of those type definitions.
+# If another mod also overrides these types, load order determines which wins.
+
+### SET LEVEL BAR (export tariffs) - OVERRIDE
+# Identical to vanilla + "Open Bulk Tariff Journal" button at the end.
+type set_level_bar_export_tariffs = flowcontainer {
+	using = set_level_bar_background
+
+	### Max tariffs
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetExportTariffsDescMax(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/max_tariffs.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetExportTariffsMax(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetExportTariffsMax(Goods.Self) )]"
+			using = decrease_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasExportTariffsMax(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetExportTariffsMax(Goods.Self)))]"
+		}
+	}
+
+	### High tariffs
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetExportTariffsDescHigh(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/high_tariffs.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetExportTariffsHigh(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetExportTariffsHigh(Goods.Self) )]"
+			using = decrease_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasExportTariffsHigh(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetExportTariffsHigh(Goods.Self)))]"
+		}
+	}
+
+	### Low tariffs
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetExportTariffsDescLow(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/low_tariffs.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetExportTariffsLow(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetExportTariffsLow(Goods.Self) )]"
+			using = decrease_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasExportTariffsLow(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetExportTariffsLow(Goods.Self)))]"
+		}
+	}
+
+	### No tariffs
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetExportTariffsDescNone(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/no_tariffs_no_subvention.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetExportTariffsNone(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetExportTariffsNone(Goods.Self) )]"
+			using = increase_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasExportTariffsNone(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetExportTariffsNone(Goods.Self)))]"
+		}
+	}
+
+	### Low subventions
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetExportSubventionsDescLow(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/low_subvention.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetExportSubventionsLow(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetExportSubventionsLow(Goods.Self) )]"
+			using = increase_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasExportSubventionsLow(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetExportSubventionsLow(Goods.Self)))]"
+		}
+	}
+
+	### High subventions
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetExportSubventionsDescHigh(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/high_subvention.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetExportSubventionsHigh(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetExportSubventionsHigh(Goods.Self) )]"
+			using = increase_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasExportSubventionsHigh(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetExportSubventionsHigh(Goods.Self)))]"
+		}
+	}
+
+	### Max subventions
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetExportSubventionsDescMax(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/max_subvention.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetExportSubventionsMax(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetExportSubventionsMax(Goods.Self) )]"
+			using = increase_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasExportSubventionsMax(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetExportSubventionsMax(Goods.Self)))]"
+		}
+	}
+
+	### BULK TARIFF MOD - "Apply to All Goods" button
+	# Opens the Journal to the decisions tab where the 14 bulk tariff decisions are listed.
+	widget = {
+		size = { 35 32 }
+		parentanchor = vcenter
+		visible = "[Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket)]"
+
+		button = {
+			size = { 35 32 }
+			parentanchor = center
+			tooltip = "BULK_TARIFF_OPEN_JOURNAL_EXPORT"
+			onclick = "[InformationPanelBar.OpenPanelCycleTabs('journal', 'default|inactive_journal_entries|nation_formation')]"
+			using = default_button
+
+			icon = {
+				texture = "gfx/interface/icons/generic_icons/information.dds"
+				size = { 20 20 }
+				parentanchor = center
+			}
+		}
+	}
+}
+
+### SET LEVEL BAR (import tariffs) - OVERRIDE
+# Identical to vanilla + "Open Bulk Tariff Journal" button at the end.
+type set_level_bar_import_tariffs = flowcontainer {
+	using = set_level_bar_background
+
+	### Max tariffs
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetImportTariffsDescMax(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/max_tariffs.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetImportTariffsMax(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetImportTariffsMax(Goods.Self) )]"
+			using = decrease_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasImportTariffsMax(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetImportTariffsMax(Goods.Self)))]"
+		}
+	}
+
+	### High tariffs
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetImportTariffsDescHigh(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/high_tariffs.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetImportTariffsHigh(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetImportTariffsHigh(Goods.Self) )]"
+			using = decrease_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasImportTariffsHigh(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetImportTariffsHigh(Goods.Self)))]"
+		}
+	}
+
+	### Low tariffs
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetImportTariffsDescLow(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/low_tariffs.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetImportTariffsLow(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetImportTariffsLow(Goods.Self) )]"
+			using = decrease_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasImportTariffsLow(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetImportTariffsLow(Goods.Self)))]"
+		}
+	}
+
+	### No tariffs
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetImportTariffsDescNone(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/no_tariffs_no_subvention.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetImportTariffsNone(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetImportTariffsNone(Goods.Self) )]"
+			using = increase_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasImportTariffsNone(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetImportTariffsNone(Goods.Self)))]"
+		}
+	}
+
+	### Low subventions
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetImportSubventionsDescLow(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/low_subvention.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetImportSubventionsLow(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetImportSubventionsLow(Goods.Self) )]"
+			using = increase_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasImportSubventionsLow(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetImportSubventionsLow(Goods.Self)))]"
+		}
+	}
+
+	### High subventions
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetImportSubventionsDescHigh(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/high_subvention.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetImportSubventionsHigh(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetImportSubventionsHigh(Goods.Self) )]"
+			using = increase_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasImportSubventionsHigh(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetImportSubventionsHigh(Goods.Self)))]"
+		}
+	}
+
+	### Max subventions
+	set_level_bar_item = {
+		tooltip = "[SelectLocalization(Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket), GetPlayer.GetImportSubventionsDescMax(Goods.Self), 'NOT_PLAYER_MARKET_PRIORITY')]"
+
+		blockoverride "button_texture" {
+			texture = "gfx/interface/icons/trade_icons/max_subvention.dds"
+		}
+		blockoverride "click" {
+			enabled = "[And(IsValid( GetPlayer.SetImportSubventionsMax(Goods.Self) ), Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket))]"
+			onclick = "[Execute( GetPlayer.SetImportSubventionsMax(Goods.Self) )]"
+			using = increase_button_sound
+		}
+		blockoverride "is_selected_visibility" {
+			visible = "[GetPlayer.HasImportSubventionsMax(Goods.Self)]"
+		}
+		blockoverride "is_clickable_alpha" {
+			alpha = "[TransparentIfFalse(IsValid( GetPlayer.SetImportSubventionsMax(Goods.Self)))]"
+		}
+	}
+
+	### BULK TARIFF MOD - "Apply to All Goods" button
+	# Opens the Journal to the decisions tab where the 14 bulk tariff decisions are listed.
+	widget = {
+		size = { 35 32 }
+		parentanchor = vcenter
+		visible = "[Goods.GetMarket.IsSame(GetPlayer.GetCapital.GetMarket)]"
+
+		button = {
+			size = { 35 32 }
+			parentanchor = center
+			tooltip = "BULK_TARIFF_OPEN_JOURNAL_IMPORT"
+			onclick = "[InformationPanelBar.OpenPanelCycleTabs('journal', 'default|inactive_journal_entries|nation_formation')]"
+			using = default_button
+
+			icon = {
+				texture = "gfx/interface/icons/generic_icons/information.dds"
+				size = { 20 20 }
+				parentanchor = center
+			}
+		}
+	}
+}

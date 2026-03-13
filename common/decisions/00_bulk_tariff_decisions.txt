@@ -1,0 +1,195 @@
+# Bulk Tariff Management - Decisions
+# These decisions appear in the Journal and apply a tariff/subvention level
+# to ALL tradeable goods at once. AI will never take them (ai_chance = 0).
+#
+# Usage: Open Journal (J) -> look for "Bulk Tariffs:" decisions at the top.
+
+### =========================================================
+### IMPORT TARIFF DECISIONS
+### =========================================================
+
+bulk_tariff_decision_import_max = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_import_max = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_import_high = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_import_high = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_import_low = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_import_low = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_import_none = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_import_none = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_import_sub_low = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_import_sub_low = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_import_sub_high = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_import_sub_high = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_import_sub_max = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_import_sub_max = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+### =========================================================
+### EXPORT TARIFF DECISIONS
+### =========================================================
+
+bulk_tariff_decision_export_max = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_export_max = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_export_high = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_export_high = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_export_low = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_export_low = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_export_none = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_export_none = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_export_sub_low = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_export_sub_low = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_export_sub_high = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_export_sub_high = yes
+	}
+	ai_chance = { value = 0 }
+}
+
+bulk_tariff_decision_export_sub_max = {
+	is_shown = {
+		always = yes
+	}
+	possible = {
+		always = yes
+	}
+	when_taken = {
+		bulk_tariff_export_sub_max = yes
+	}
+	ai_chance = { value = 0 }
+}
