@@ -10,7 +10,7 @@ bulk_tariff_decision = {
 		always = yes
 	}
 	when_taken = {
-		fire_event = { id = btm.1 }
+		trigger_event = { id = btm.1 popup = yes }
 	}
 	ai_chance = { value = 0 }
 }

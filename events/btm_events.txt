@@ -52,7 +52,7 @@ btm.1 = {
 	# Switch to Export page
 	option = {
 		name = "btm.1.opt_goto_export"
-		fire_event = { id = btm.2 }
+		trigger_event = { id = btm.2 popup = yes }
 	}
 	# Cancel
 	option = {
@@ -107,7 +107,7 @@ btm.2 = {
 	# Switch to Import page
 	option = {
 		name = "btm.2.opt_goto_import"
-		fire_event = { id = btm.1 }
+		trigger_event = { id = btm.1 popup = yes }
 	}
 	# Cancel
 	option = {
