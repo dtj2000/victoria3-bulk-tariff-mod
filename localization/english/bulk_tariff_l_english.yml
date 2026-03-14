@@ -2,44 +2,44 @@
  # =====================================================================
  # GUI button tooltips (on the tariff bars)
  # =====================================================================
- BULK_TARIFF_OPEN_JOURNAL_EXPORT: "§YBulk Export Tariffs§!|Open the §YBulk Tariff Management§! Journal decision to apply an export policy to all goods at once."
- BULK_TARIFF_OPEN_JOURNAL_IMPORT: "§YBulk Import Tariffs§!|Open the §YBulk Tariff Management§! Journal decision to apply an import policy to all goods at once."
+ BULK_TARIFF_OPEN_JOURNAL_EXPORT: "#T Bulk Export Tariffs#!|Open the #T Bulk Tariff Management#! Journal decision to apply an export policy to all goods at once."
+ BULK_TARIFF_OPEN_JOURNAL_IMPORT: "#T Bulk Import Tariffs#!|Open the #T Bulk Tariff Management#! Journal decision to apply an import policy to all goods at once."
 
  # =====================================================================
  # Decision (single entry in Journal)
  # =====================================================================
  bulk_tariff_decision: "Bulk Tariff Management"
- bulk_tariff_decision_desc: "Apply a single tariff or subvention policy to §Yall 49 tradeable goods§! at once."
+ bulk_tariff_decision_desc: "Apply a single tariff or subvention policy to #T all 49 tradeable goods#! at once."
  bulk_tariff_decision_tooltip: "Opens a window to choose an import or export tariff policy to apply to all goods simultaneously."
 
  # =====================================================================
  # btm.1 — Import Tariff Policy event
  # =====================================================================
  btm.1.t: "Bulk Import Tariff Policy"
- btm.1.d: "Select an import tariff policy to apply to §Yall 49 tradeable goods§! simultaneously.\n\nThis will overwrite the current import tariff setting for every tradeable good."
+ btm.1.d: "Select an import tariff policy to apply to #T all 49 tradeable goods#! simultaneously.\n\nThis will overwrite the current import tariff setting for every tradeable good."
 
- btm.1.opt_max:      "§RMax Tariffs§! — all imports"
- btm.1.opt_high:     "§YHigh Tariffs§! — all imports"
- btm.1.opt_low:      "§YLow Tariffs§! — all imports"
+ btm.1.opt_max:      "#R Max Tariffs#! — all imports"
+ btm.1.opt_high:     "#T High Tariffs#! — all imports"
+ btm.1.opt_low:      "#T Low Tariffs#! — all imports"
  btm.1.opt_none:     "No Tariffs — all imports"
- btm.1.opt_sub_low:  "§GLow Subventions§! — all imports"
- btm.1.opt_sub_high: "§GHigh Subventions§! — all imports"
- btm.1.opt_sub_max:  "§GMax Subventions§! — all imports"
- btm.1.opt_goto_export: "→ Switch to §YExport§! Tariffs"
+ btm.1.opt_sub_low:  "#G Low Subventions#! — all imports"
+ btm.1.opt_sub_high: "#G High Subventions#! — all imports"
+ btm.1.opt_sub_max:  "#G Max Subventions#! — all imports"
+ btm.1.opt_goto_export: "→ Switch to #T Export#! Tariffs"
  btm.1.opt_cancel:   "Cancel"
 
  # =====================================================================
  # btm.2 — Export Tariff Policy event
  # =====================================================================
  btm.2.t: "Bulk Export Tariff Policy"
- btm.2.d: "Select an export tariff policy to apply to §Yall 49 tradeable goods§! simultaneously.\n\nThis will overwrite the current export tariff setting for every tradeable good."
+ btm.2.d: "Select an export tariff policy to apply to #T all 49 tradeable goods#! simultaneously.\n\nThis will overwrite the current export tariff setting for every tradeable good."
 
- btm.2.opt_max:      "§RMax Tariffs§! — all exports"
- btm.2.opt_high:     "§YHigh Tariffs§! — all exports"
- btm.2.opt_low:      "§YLow Tariffs§! — all exports"
+ btm.2.opt_max:      "#R Max Tariffs#! — all exports"
+ btm.2.opt_high:     "#T High Tariffs#! — all exports"
+ btm.2.opt_low:      "#T Low Tariffs#! — all exports"
  btm.2.opt_none:     "No Tariffs — all exports"
- btm.2.opt_sub_low:  "§GLow Subventions§! — all exports"
- btm.2.opt_sub_high: "§GHigh Subventions§! — all exports"
- btm.2.opt_sub_max:  "§GMax Subventions§! — all exports"
- btm.2.opt_goto_import: "← Switch to §YImport§! Tariffs"
+ btm.2.opt_sub_low:  "#G Low Subventions#! — all exports"
+ btm.2.opt_sub_high: "#G High Subventions#! — all exports"
+ btm.2.opt_sub_max:  "#G Max Subventions#! — all exports"
+ btm.2.opt_goto_import: "← Switch to #T Import#! Tariffs"
  btm.2.opt_cancel:   "Cancel"
