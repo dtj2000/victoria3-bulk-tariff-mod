@@ -14,6 +14,11 @@ btm.1 = {
 	desc = "btm.1.d"
 	theme = trade
 
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+	}
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
+
 	# Max Tariffs
 	option = {
 		name = "btm.1.opt_max"
@@ -68,6 +73,11 @@ btm.2 = {
 	title = "btm.2.t"
 	desc = "btm.2.d"
 	theme = trade
+
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_capitalists_meeting.bk2"
+	}
+	icon = "gfx/interface/icons/event_icons/event_trade.dds"
 
 	# Max Tariffs
 	option = {
