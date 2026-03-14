@@ -1,66 +1,45 @@
 ﻿l_english:
- # GUI tooltips for the "open journal" buttons on the tariff bars
- BULK_TARIFF_OPEN_JOURNAL_EXPORT: "§YBulk Export Tariffs§!|Open the Journal to apply a tariff/subvention level to §Yall goods§! at once."
- BULK_TARIFF_OPEN_JOURNAL_IMPORT: "§YBulk Import Tariffs§!|Open the Journal to apply a tariff/subvention level to §Yall goods§! at once."
+ # =====================================================================
+ # GUI button tooltips (on the tariff bars)
+ # =====================================================================
+ BULK_TARIFF_OPEN_JOURNAL_EXPORT: "§YBulk Export Tariffs§!|Open the §YBulk Tariff Management§! Journal decision to apply an export policy to all goods at once."
+ BULK_TARIFF_OPEN_JOURNAL_IMPORT: "§YBulk Import Tariffs§!|Open the §YBulk Tariff Management§! Journal decision to apply an import policy to all goods at once."
 
  # =====================================================================
- # IMPORT TARIFF DECISIONS
+ # Decision (single entry in Journal)
  # =====================================================================
- bulk_tariff_decision_import_max: "Bulk Tariffs: Set All Imports — Max Tariffs"
- bulk_tariff_decision_import_max_desc: "Applies §RMaximum Import Tariffs§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_import_max_tooltip: "Sets every tradeable good's import tariff to maximum."
-
- bulk_tariff_decision_import_high: "Bulk Tariffs: Set All Imports — High Tariffs"
- bulk_tariff_decision_import_high_desc: "Applies §RHigh Import Tariffs§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_import_high_tooltip: "Sets every tradeable good's import tariff to high."
-
- bulk_tariff_decision_import_low: "Bulk Tariffs: Set All Imports — Low Tariffs"
- bulk_tariff_decision_import_low_desc: "Applies §YLow Import Tariffs§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_import_low_tooltip: "Sets every tradeable good's import tariff to low."
-
- bulk_tariff_decision_import_none: "Bulk Tariffs: Set All Imports — No Tariffs"
- bulk_tariff_decision_import_none_desc: "Removes all import tariffs and subventions from all 49 tradeable goods simultaneously."
- bulk_tariff_decision_import_none_tooltip: "Sets every tradeable good's import tariff to none."
-
- bulk_tariff_decision_import_sub_low: "Bulk Tariffs: Set All Imports — Low Subventions"
- bulk_tariff_decision_import_sub_low_desc: "Applies §GLow Import Subventions§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_import_sub_low_tooltip: "Sets every tradeable good's import level to low subventions."
-
- bulk_tariff_decision_import_sub_high: "Bulk Tariffs: Set All Imports — High Subventions"
- bulk_tariff_decision_import_sub_high_desc: "Applies §GHigh Import Subventions§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_import_sub_high_tooltip: "Sets every tradeable good's import level to high subventions."
-
- bulk_tariff_decision_import_sub_max: "Bulk Tariffs: Set All Imports — Max Subventions"
- bulk_tariff_decision_import_sub_max_desc: "Applies §GMaximum Import Subventions§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_import_sub_max_tooltip: "Sets every tradeable good's import level to maximum subventions."
+ bulk_tariff_decision: "Bulk Tariff Management"
+ bulk_tariff_decision_desc: "Apply a single tariff or subvention policy to §Yall 49 tradeable goods§! at once."
+ bulk_tariff_decision_tooltip: "Opens a window to choose an import or export tariff policy to apply to all goods simultaneously."
 
  # =====================================================================
- # EXPORT TARIFF DECISIONS
+ # btm.1 — Import Tariff Policy event
  # =====================================================================
- bulk_tariff_decision_export_max: "Bulk Tariffs: Set All Exports — Max Tariffs"
- bulk_tariff_decision_export_max_desc: "Applies §RMaximum Export Tariffs§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_export_max_tooltip: "Sets every tradeable good's export tariff to maximum."
+ btm.1.t: "Bulk Import Tariff Policy"
+ btm.1.d: "Select an import tariff policy to apply to §Yall 49 tradeable goods§! simultaneously.\n\nThis will overwrite the current import tariff setting for every tradeable good."
 
- bulk_tariff_decision_export_high: "Bulk Tariffs: Set All Exports — High Tariffs"
- bulk_tariff_decision_export_high_desc: "Applies §RHigh Export Tariffs§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_export_high_tooltip: "Sets every tradeable good's export tariff to high."
+ btm.1.opt_max:      "§RMax Tariffs§! — all imports"
+ btm.1.opt_high:     "§YHigh Tariffs§! — all imports"
+ btm.1.opt_low:      "§YLow Tariffs§! — all imports"
+ btm.1.opt_none:     "No Tariffs — all imports"
+ btm.1.opt_sub_low:  "§GLow Subventions§! — all imports"
+ btm.1.opt_sub_high: "§GHigh Subventions§! — all imports"
+ btm.1.opt_sub_max:  "§GMax Subventions§! — all imports"
+ btm.1.opt_goto_export: "→ Switch to §YExport§! Tariffs"
+ btm.1.opt_cancel:   "Cancel"
 
- bulk_tariff_decision_export_low: "Bulk Tariffs: Set All Exports — Low Tariffs"
- bulk_tariff_decision_export_low_desc: "Applies §YLow Export Tariffs§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_export_low_tooltip: "Sets every tradeable good's export tariff to low."
+ # =====================================================================
+ # btm.2 — Export Tariff Policy event
+ # =====================================================================
+ btm.2.t: "Bulk Export Tariff Policy"
+ btm.2.d: "Select an export tariff policy to apply to §Yall 49 tradeable goods§! simultaneously.\n\nThis will overwrite the current export tariff setting for every tradeable good."
 
- bulk_tariff_decision_export_none: "Bulk Tariffs: Set All Exports — No Tariffs"
- bulk_tariff_decision_export_none_desc: "Removes all export tariffs and subventions from all 49 tradeable goods simultaneously."
- bulk_tariff_decision_export_none_tooltip: "Sets every tradeable good's export tariff to none."
-
- bulk_tariff_decision_export_sub_low: "Bulk Tariffs: Set All Exports — Low Subventions"
- bulk_tariff_decision_export_sub_low_desc: "Applies §GLow Export Subventions§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_export_sub_low_tooltip: "Sets every tradeable good's export level to low subventions."
-
- bulk_tariff_decision_export_sub_high: "Bulk Tariffs: Set All Exports — High Subventions"
- bulk_tariff_decision_export_sub_high_desc: "Applies §GHigh Export Subventions§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_export_sub_high_tooltip: "Sets every tradeable good's export level to high subventions."
-
- bulk_tariff_decision_export_sub_max: "Bulk Tariffs: Set All Exports — Max Subventions"
- bulk_tariff_decision_export_sub_max_desc: "Applies §GMaximum Export Subventions§! to all 49 tradeable goods simultaneously."
- bulk_tariff_decision_export_sub_max_tooltip: "Sets every tradeable good's export level to maximum subventions."
+ btm.2.opt_max:      "§RMax Tariffs§! — all exports"
+ btm.2.opt_high:     "§YHigh Tariffs§! — all exports"
+ btm.2.opt_low:      "§YLow Tariffs§! — all exports"
+ btm.2.opt_none:     "No Tariffs — all exports"
+ btm.2.opt_sub_low:  "§GLow Subventions§! — all exports"
+ btm.2.opt_sub_high: "§GHigh Subventions§! — all exports"
+ btm.2.opt_sub_max:  "§GMax Subventions§! — all exports"
+ btm.2.opt_goto_import: "← Switch to §YImport§! Tariffs"
+ btm.2.opt_cancel:   "Cancel"

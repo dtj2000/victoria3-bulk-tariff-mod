@@ -1,0 +1,116 @@
+# Bulk Tariff Management - Events
+# btm.1 = Import tariff policy selector
+# btm.2 = Export tariff policy selector
+# Each page has 7 level options, a link to the other page, and a cancel button.
+
+namespace = btm
+
+# =====================================================================
+# btm.1 — Import Tariff Policy
+# =====================================================================
+btm.1 = {
+	type = country_event
+	title = "btm.1.t"
+	desc = "btm.1.d"
+	theme = trade
+
+	# Max Tariffs
+	option = {
+		name = "btm.1.opt_max"
+		bulk_tariff_import_max = yes
+	}
+	# High Tariffs
+	option = {
+		name = "btm.1.opt_high"
+		bulk_tariff_import_high = yes
+	}
+	# Low Tariffs
+	option = {
+		name = "btm.1.opt_low"
+		bulk_tariff_import_low = yes
+	}
+	# No Tariffs / Subventions
+	option = {
+		name = "btm.1.opt_none"
+		bulk_tariff_import_none = yes
+	}
+	# Low Subventions
+	option = {
+		name = "btm.1.opt_sub_low"
+		bulk_tariff_import_sub_low = yes
+	}
+	# High Subventions
+	option = {
+		name = "btm.1.opt_sub_high"
+		bulk_tariff_import_sub_high = yes
+	}
+	# Max Subventions
+	option = {
+		name = "btm.1.opt_sub_max"
+		bulk_tariff_import_sub_max = yes
+	}
+	# Switch to Export page
+	option = {
+		name = "btm.1.opt_goto_export"
+		fire_event = { id = btm.2 }
+	}
+	# Cancel
+	option = {
+		name = "btm.1.opt_cancel"
+	}
+}
+
+# =====================================================================
+# btm.2 — Export Tariff Policy
+# =====================================================================
+btm.2 = {
+	type = country_event
+	title = "btm.2.t"
+	desc = "btm.2.d"
+	theme = trade
+
+	# Max Tariffs
+	option = {
+		name = "btm.2.opt_max"
+		bulk_tariff_export_max = yes
+	}
+	# High Tariffs
+	option = {
+		name = "btm.2.opt_high"
+		bulk_tariff_export_high = yes
+	}
+	# Low Tariffs
+	option = {
+		name = "btm.2.opt_low"
+		bulk_tariff_export_low = yes
+	}
+	# No Tariffs / Subventions
+	option = {
+		name = "btm.2.opt_none"
+		bulk_tariff_export_none = yes
+	}
+	# Low Subventions
+	option = {
+		name = "btm.2.opt_sub_low"
+		bulk_tariff_export_sub_low = yes
+	}
+	# High Subventions
+	option = {
+		name = "btm.2.opt_sub_high"
+		bulk_tariff_export_sub_high = yes
+	}
+	# Max Subventions
+	option = {
+		name = "btm.2.opt_sub_max"
+		bulk_tariff_export_sub_max = yes
+	}
+	# Switch to Import page
+	option = {
+		name = "btm.2.opt_goto_import"
+		fire_event = { id = btm.1 }
+	}
+	# Cancel
+	option = {
+		name = "btm.2.opt_cancel"
+	}
+}
