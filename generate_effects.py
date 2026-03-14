@@ -2,23 +2,31 @@
 """
 Bulk Tariff Management - Effect Generator
 ==========================================
-Reads Victoria 3's goods definition file and regenerates
+Scans Victoria 3's common/goods/ directory (and any extra mod paths you
+provide) to build the full list of tradeable goods, then regenerates
 common/scripted_effects/00_bulk_tariff_effects.txt automatically.
 
 Usage:
+    # Base game only (uses default install path)
     python generate_effects.py
 
-Optionally override the game path:
-    python generate_effects.py "D:/SteamLibrary/steamapps/common/Victoria 3"
+    # Custom game path
+    python generate_effects.py --game "D:/SteamLibrary/steamapps/common/Victoria 3"
+
+    # Include extra mod goods directories
+    python generate_effects.py --mods "path/to/mod_a" "path/to/mod_b"
+
+    # Both
+    python generate_effects.py --game "D:/..." --mods "path/to/mod_a"
 
 Re-run this whenever:
   - Victoria 3 updates and adds new goods
-  - You add a mod that defines new goods in common/goods/
+  - You install a mod that defines new goods in common/goods/
 """
 
 import re
 import sys
-import os
+import argparse
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -27,48 +35,44 @@ from pathlib import Path
 
 DEFAULT_GAME_PATH = r"D:\SteamLibrary\steamapps\common\Victoria 3"
 
-GOODS_FILE_RELATIVE = r"game\common\goods\00_goods.txt"
+GOODS_SUBDIR = Path("game") / "common" / "goods"  # relative to game root
+MOD_GOODS_SUBDIR = Path("common") / "goods"        # relative to mod root
 
 OUTPUT_FILE = Path(__file__).parent / "common" / "scripted_effects" / "00_bulk_tariff_effects.txt"
 
 TARIFF_LEVELS = [
-    ("max",     "max_tariffs"),
-    ("high",    "high_tariffs"),
-    ("low",     "low_tariffs"),
-    ("none",    "no_tariffs_or_subventions"),
+    ("max",      "max_tariffs"),
+    ("high",     "high_tariffs"),
+    ("low",      "low_tariffs"),
+    ("none",     "no_tariffs_or_subventions"),
     ("sub_low",  "low_subventions"),
     ("sub_high", "high_subventions"),
     ("sub_max",  "max_subventions"),
 ]
 
 # ---------------------------------------------------------------------------
-# Parse goods
+# Goods parser
 # ---------------------------------------------------------------------------
 
-def parse_tradeable_goods(goods_path: Path) -> list[str]:
+def parse_goods_file(path: Path) -> list[tuple[str, bool]]:
     """
-    Returns a list of good keys that are tradeable (i.e. can have tariffs set).
-    Excludes goods marked with 'local = yes' or 'tradeable = no'.
+    Parse one goods .txt file. Returns list of (key, tradeable) tuples.
+    A good is tradeable if it does NOT have 'local = yes' or 'tradeable = no'.
     """
-    text = goods_path.read_text(encoding="utf-8")
+    text = path.read_text(encoding="utf-8", errors="replace")
+    text = re.sub(r"#[^\n]*", "", text)  # strip comments
 
-    # Strip comments
-    text = re.sub(r"#[^\n]*", "", text)
-
-    # Find each top-level block: key = { ... }
-    # We use a simple brace-matching parser so nested braces work correctly.
-    tradeable = []
+    results = []
     i = 0
     while i < len(text):
-        # Find the next word (potential good key)
-        m = re.search(r"\b([a-z_]+)\b\s*=\s*\{", text[i:])
+        m = re.search(r"\b([a-zA-Z_][a-zA-Z0-9_]*)\b\s*=\s*\{", text[i:])
         if not m:
             break
 
         key = m.group(1)
-        start = i + m.end()  # position just after the opening {
+        start = i + m.end()
 
-        # Match braces to find the end of this block
+        # Brace-match to find end of block
         depth = 1
         j = start
         while j < len(text) and depth > 0:
@@ -78,102 +82,146 @@ def parse_tradeable_goods(goods_path: Path) -> list[str]:
                 depth -= 1
             j += 1
 
-        block = text[start:j - 1]
+        block = text[start : j - 1]
         i = j
 
-        # Skip the outer GOODS = { ... } wrapper
-        if key == "GOODS":
+        # Skip wrapper blocks (GOODS = { }, types block, etc.)
+        if key.isupper():
             continue
 
-        # Skip if explicitly non-tradeable
-        if re.search(r"\btradeable\s*=\s*no\b", block):
+        # Must look like a goods definition (has 'cost =' or 'category =')
+        if not re.search(r"\bcost\s*=|\bcategory\s*=", block):
             continue
 
-        # Skip if local (services, transportation, electricity)
-        if re.search(r"\blocal\s*=\s*yes\b", block):
-            continue
+        local     = bool(re.search(r"\blocal\s*=\s*yes\b", block))
+        untradeable = bool(re.search(r"\btradeable\s*=\s*no\b", block))
 
-        tradeable.append(key)
+        if not local and not untradeable:
+            results.append(key)
 
-    return tradeable
+    return results
 
+
+def collect_goods(game_path: Path, mod_paths: list[Path]) -> list[str]:
+    """
+    Scan all goods directories and return a deduplicated ordered list of
+    tradeable good keys.
+    """
+    search_dirs: list[tuple[Path, str]] = []
+
+    # Base game
+    game_goods_dir = game_path / GOODS_SUBDIR
+    if game_goods_dir.exists():
+        search_dirs.append((game_goods_dir, "base game"))
+    else:
+        print(f"WARNING: Base game goods dir not found: {game_goods_dir}")
+
+    # Extra mods
+    for mod_path in mod_paths:
+        mod_goods_dir = mod_path / MOD_GOODS_SUBDIR
+        if mod_goods_dir.exists():
+            search_dirs.append((mod_goods_dir, str(mod_path.name)))
+        else:
+            print(f"WARNING: Mod goods dir not found: {mod_goods_dir}")
+
+    seen: set[str] = set()
+    ordered: list[str] = []
+
+    for goods_dir, source_label in search_dirs:
+        txt_files = sorted(goods_dir.glob("*.txt"))
+        print(f"\n[{source_label}] Scanning {len(txt_files)} file(s) in {goods_dir}")
+        for f in txt_files:
+            goods = parse_goods_file(f)
+            new = [g for g in goods if g not in seen]
+            for g in new:
+                seen.add(g)
+                ordered.append(g)
+            print(f"  {f.name}: {len(goods)} goods ({len(new)} new)")
+
+    return ordered
 
 # ---------------------------------------------------------------------------
-# Generate effects file
+# File generator
 # ---------------------------------------------------------------------------
 
 HEADER = """\
 # Bulk Tariff Management - Scripted Effects
 # AUTO-GENERATED by generate_effects.py — do not edit by hand.
-# Re-run generate_effects.py to update for new goods.
+# Re-run generate_effects.py to update when goods are added or changed.
 #
-# Goods included: {count} tradeable goods parsed from:
-#   {source}
+# Goods included: {count} tradeable goods
+# Sources scanned: {sources}
 """
 
 def generate_effect_block(name: str, effect: str, goods: list[str], level: str) -> str:
     lines = [f"{name} = {{"]
     for good in goods:
-        lines.append(f"\t{effect} = {{ goods = g:{good} level = {level} }}")
+        lines.append(f"\tset_{effect}_tariff_level = {{ goods = g:{good} level = {level} }}")
     lines.append("}\n")
     return "\n".join(lines)
 
 
-def generate_file(goods: list[str], source_path: Path) -> str:
-    sections = [HEADER.format(count=len(goods), source=source_path)]
+def generate_file(goods: list[str], sources: list[str]) -> str:
+    parts = [HEADER.format(count=len(goods), sources=", ".join(sources))]
 
-    sections.append("### =========================================================")
-    sections.append("### IMPORT TARIFFS")
-    sections.append("### =========================================================\n")
+    parts.append("### =========================================================")
+    parts.append("### IMPORT TARIFFS")
+    parts.append("### =========================================================\n")
     for suffix, level in TARIFF_LEVELS:
-        block = generate_effect_block(
-            f"bulk_tariff_import_{suffix}",
-            "set_import_tariff_level",
-            goods,
-            level
-        )
-        sections.append(block)
+        parts.append(generate_effect_block(
+            f"bulk_tariff_import_{suffix}", "import", goods, level
+        ))
 
-    sections.append("### =========================================================")
-    sections.append("### EXPORT TARIFFS")
-    sections.append("### =========================================================\n")
+    parts.append("### =========================================================")
+    parts.append("### EXPORT TARIFFS")
+    parts.append("### =========================================================\n")
     for suffix, level in TARIFF_LEVELS:
-        block = generate_effect_block(
-            f"bulk_tariff_export_{suffix}",
-            "set_export_tariff_level",
-            goods,
-            level
-        )
-        sections.append(block)
+        parts.append(generate_effect_block(
+            f"bulk_tariff_export_{suffix}", "export", goods, level
+        ))
 
-    return "\n".join(sections)
-
+    return "\n".join(parts)
 
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
 def main():
-    game_path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(DEFAULT_GAME_PATH)
-    goods_path = game_path / GOODS_FILE_RELATIVE
+    parser = argparse.ArgumentParser(description="Generate bulk tariff scripted effects.")
+    parser.add_argument(
+        "--game", default=DEFAULT_GAME_PATH,
+        help="Path to your Victoria 3 install directory."
+    )
+    parser.add_argument(
+        "--mods", nargs="*", default=[],
+        help="Paths to additional mod root directories to scan for extra goods."
+    )
+    args = parser.parse_args()
 
-    if not goods_path.exists():
-        print(f"ERROR: Could not find goods file at:\n  {goods_path}")
-        print("Pass your Victoria 3 install path as the first argument.")
+    game_path = Path(args.game)
+    mod_paths = [Path(p) for p in args.mods]
+
+    if not game_path.exists():
+        print(f"ERROR: Game path not found: {game_path}")
         sys.exit(1)
 
-    print(f"Reading goods from: {goods_path}")
-    goods = parse_tradeable_goods(goods_path)
-    print(f"Found {len(goods)} tradeable goods:")
+    goods = collect_goods(game_path, mod_paths)
+
+    if not goods:
+        print("ERROR: No tradeable goods found. Check your game path.")
+        sys.exit(1)
+
+    print(f"\nTotal tradeable goods found: {len(goods)}")
     for g in goods:
         print(f"  {g}")
 
-    content = generate_file(goods, goods_path)
+    sources = ["base game"] + [Path(p).name for p in args.mods]
+    content = generate_file(goods, sources)
 
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_FILE.write_text(content, encoding="utf-8")
     print(f"\nWrote {OUTPUT_FILE}")
-    print("Done. Re-run this script whenever goods change.")
+    print("Done.")
 
 
 if __name__ == "__main__":
